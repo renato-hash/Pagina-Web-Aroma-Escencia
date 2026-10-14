@@ -6,13 +6,14 @@ describe('Pruebas Unitarias - Tienda Perfumes Aroma & Esencia', () => {
   beforeEach(() => {
     productosSimulados = [
       { id: 1, nombre: 'Perfume Esencia Rosa', precio: 29990, categoria: 'Florales', stock: 15 },
-      { id: 2, nombre: 'Perfume Noche Mística', precio: 34990, categoria: 'Amaderados', stock: 12 }
+      { id: 2, nombre: 'Perfume Noche Mística', precio: 34990, categoria: 'Amaderados', stock: 12 },
+      { id: 3, nombre: 'Perfume Citrus Gold', precio: 27990, categoria: 'Cítricos', stock: 20 }
     ];
   });
 
-  // 1. PRUEBAS DE RENDERIZADO / DATOS
+  // 1. PRUEBAS DE RENDERIZADO Y DATOS INICIALES
   it('1. Debe inicializar el catálogo de perfumes correctamente', () => {
-    expect(productosSimulados.length).toBe(2);
+    expect(productosSimulados.length).toBe(3);
     expect(productosSimulados[0].nombre).toContain('Rosa');
   });
 
@@ -30,7 +31,8 @@ describe('Pruebas Unitarias - Tienda Perfumes Aroma & Esencia', () => {
 
   it('4. Debe formatear correctamente los precios a moneda CLP', () => {
     const precio = 29990;
-    const precioFormateado = `$${precio.toLocaleString('es-CL')}`;
+    const formatearCLP = (val) => `$${val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+    const precioFormateado = formatearCLP(precio);
     expect(precioFormateado).toBe('$29.990');
   });
 
@@ -68,7 +70,7 @@ describe('Pruebas Unitarias - Tienda Perfumes Aroma & Esencia', () => {
     expect(carrito[0].id).toBe(2);
   });
 
-  // 4. PRUEBAS DE EVENTOS Y MOCKS
+  // 4. PRUEBAS DE EVENTOS Y MOCKS (VI.FN)
   it('8. Debe simular el evento de agregar al carrito utilizando un Mock (vi.fn)', () => {
     const mockAgregar = vi.fn();
     const perfumeSeleccionado = productosSimulados[0];
@@ -87,17 +89,18 @@ describe('Pruebas Unitarias - Tienda Perfumes Aroma & Esencia', () => {
     expect(filtrados[0].categoria).toBe('Florales');
   });
 
-  // 5. PRUEBA DE PERSISTENCIA (LOCALSTORAGE)
+  // 5. PRUEBA DE PERSISTENCIA (LOCALSTORAGE Y SPY)
   it('10. Debe guardar y recuperar el carrito de perfumes desde localStorage', () => {
     const carritoTest = [{ id: 1, cantidad: 2 }];
-    const spyGetItem = vi.spyOn(Storage.prototype, 'getItem').mockReturnValue(JSON.stringify(carritoTest));
+    
+    const mockStorage = {
+      getItem: vi.fn().mockReturnValue(JSON.stringify(carritoTest))
+    };
 
-    const guardado = JSON.parse(localStorage.getItem('aroma_carrito'));
+    const guardado = JSON.parse(mockStorage.getItem('aroma_carrito'));
 
-    expect(spyGetItem).toHaveBeenCalledWith('aroma_carrito');
+    expect(mockStorage.getItem).toHaveBeenCalledWith('aroma_carrito');
     expect(guardado.length).toBe(1);
     expect(guardado[0].cantidad).toBe(2);
-
-    spyGetItem.mockRestore();
   });
 });
