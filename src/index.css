@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #4a5d4e;
+  --accent-color: #d4a373;
+  --bg-light: #f8f9fa;
+  --text-dark: #2b2d42;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #faf9f6;
+  color: var(--text-dark);
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(135deg, #1a251c 0%, #2d3b2f 100%) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Banner Principal */
+.hero-banner {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&q=80&w=1200') center/cover;
+  color: white;
+  padding: 80px 20px;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* Tarjetas de Productos */
+.product-card {
+  border: none !important;
+  border-radius: 16px !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.product-card img {
+  height: 240px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+}
+
+.price-tag {
+  color: #2d3b2f;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* Botones */
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  border-radius: 8px !important;
+  font-weight: 500;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #38473b !important;
+  border-color: #38473b !important;
+}
+
+.btn-accent {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.btn-accent:hover {
+  background-color: #bc8a5f;
+  color: white;
+}
